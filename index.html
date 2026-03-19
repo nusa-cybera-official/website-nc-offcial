@@ -1,1 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NUSACYBERA COUNCIL — CLASSIFIED</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root{--cyan:#00f5ff;--cyan2:#00b4d8;--gold:#ffd166;--gold2:#f4a51b;--red:#ff4d6d;--green:#06ffa5;--dark:#020c1b;--dark2:#071428;--classified:#ff4d6d;--secret:rgba(255,77,109,0.15);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{min-height:100vh;background:#010810;font-family:'Share Tech Mono',monospace;overflow-x:hidden;cursor:crosshair;}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,245,255,0.015) 2px,rgba(0,245,255,0.015) 4px);pointer-events:none;z-index:0;}
+  body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,0.7) 100%);pointer-events:none;z-index:0;}
+  .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,245,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.02) 1px,transparent 1px);background-size:30px 30px;animation:gridDrift 30s linear infinite;}
+  @keyframes gridDrift{0%{background-position:0 0;}100%{background-position:30px 30px;}}
+  .scanline{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(transparent,rgba(0,245,255,0.08),transparent);animation:sweep 6s linear infinite;pointer-events:none;z-index:5;}
+  @keyframes sweep{0%{transform:translateY(-10px);}100%{transform:translateY(110vh);}}
+  .access-overlay{position:fixed;inset:0;z-index:200;background:#010810;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:overlayOut 0.5s ease 3.5s forwards;}
+  @keyframes overlayOut{to{opacity:0;pointer-events:none;}}
+  .access-text{font-family:'Orbitron',monospace;font-size:14px;letter-spacing:6px;color:var(--red);text-align:center;margin-bottom:20px;animation:blink 0.3s steps(1) infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+  .access-granted{font-family:'Orbitron',monospace;font-size:20px;letter-spacing:8px;color:var(--green);text-align:center;animation:fadeInGreen 0.5s ease 2s both;}
+  @keyframes fadeInGreen{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
+  .access-bar{width:280px;height:3px;background:rgba(0,245,255,0.1);border-radius:2px;margin:16px auto;overflow:hidden;}
+  .access-bar-fill{height:100%;background:var(--green);width:0;animation:fillBar 1.8s ease 0.5s forwards;}
+  @keyframes fillBar{to{width:100%;}}
+  .access-code{font-size:9px;letter-spacing:3px;color:rgba(0,245,255,0.3);margin-top:8px;animation:codeFlicker 0.1s steps(1) infinite;}
+  @keyframes codeFlicker{0%,100%{opacity:1;}50%{opacity:0.6;}}
+  .wrap{position:relative;z-index:10;max-width:520px;margin:0 auto;padding:24px 16px 60px;}
+  .top-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.3);border-radius:8px;margin-bottom:20px;animation:fadeUp 0.5s ease 3.8s both;}
+  .top-bar-left{font-size:9px;letter-spacing:3px;color:var(--red);}
+  .top-bar-right{font-size:9px;letter-spacing:2px;color:rgba(255,77,109,0.5);}
+  .blink-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);animation:blink 1s steps(1) infinite;margin-right:6px;}
+  .header{text-align:center;margin-bottom:28px;animation:fadeUp 0.6s ease 4s both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+  .nc-emblem{width:80px;height:90px;margin:0 auto 14px;filter:drop-shadow(0 0 20px var(--cyan));animation:emblemPulse 4s ease-in-out infinite;}
+  @keyframes emblemPulse{0%,100%{filter:drop-shadow(0 0 20px var(--cyan));}50%{filter:drop-shadow(0 0 40px var(--cyan)) drop-shadow(0 0 60px rgba(0,245,255,0.3));}}
+  .council-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:400;letter-spacing:8px;color:var(--red);margin-bottom:6px;}
+  .org-name{font-family:'Orbitron',monospace;font-size:26px;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,var(--cyan),#fff,var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 10px rgba(0,245,255,0.4));margin-bottom:4px;}
+  .council-sub{font-size:10px;letter-spacing:6px;color:var(--gold);opacity:0.8;}
+  .classified-stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font-family:'Orbitron',monospace;font-size:13px;letter-spacing:5px;padding:6px 18px;transform:rotate(-2deg);box-shadow:0 0 16px rgba(255,77,109,0.3);margin:12px 0;opacity:0.9;}
+  .divider{display:flex;align-items:center;gap:10px;margin:18px 0;}
+  .div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(0,245,255,0.3),transparent);}
+  .div-diamond{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 8px var(--gold);}
+  .section-label{font-size:9px;letter-spacing:5px;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .section-label::before,.section-label::after{content:'';flex:1;height:1px;background:rgba(255,77,109,0.3);}
+  .hierarchy-card{background:rgba(7,20,40,0.9);border:1px solid rgba(0,245,255,0.12);border-radius:14px;padding:18px;margin-bottom:14px;position:relative;overflow:hidden;animation:fadeUp 0.5s ease both;}
+  .hierarchy-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+  .hierarchy-title{font-size:9px;letter-spacing:4px;color:var(--gold);margin-bottom:14px;text-align:center;}
+  .hierarchy-tree{display:flex;flex-direction:column;align-items:center;gap:0;}
+  .h-node{background:rgba(0,0,0,0.4);border:1px solid;border-radius:8px;padding:8px 20px;text-align:center;width:100%;max-width:240px;position:relative;}
+  .h-node.tier-1{border-color:var(--gold);color:var(--gold);box-shadow:0 0 12px rgba(255,209,102,0.15);}
+  .h-node.tier-2{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 10px rgba(0,245,255,0.1);}
+  .h-node.tier-3{border-color:rgba(0,180,216,0.5);color:var(--cyan2);}
+  .h-node.tier-4{border-color:rgba(6,255,165,0.4);color:var(--green);}
+  .h-label{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;font-weight:700;}
+  .h-code{font-size:8px;letter-spacing:2px;opacity:0.5;margin-top:2px;}
+  .h-connector{width:1px;height:16px;background:rgba(0,245,255,0.2);margin:0 auto;}
+  .h-split{display:flex;justify-content:center;gap:12px;width:100%;}
+  .h-split-line{display:flex;flex-direction:column;align-items:center;flex:1;max-width:180px;}
+.agent-card{background:rgba(7,20,40,0.88);border:1px solid rgba(0,245,255,0.12);border-radius:14px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden;animation:fadeUp 0.5s ease both;}
+  .agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+  .cmd-card{border-color:rgba(255,209,102,0.3);background:linear-gradient(135deg,rgba(255,209,102,0.06),rgba(7,20,40,0.95));}
+  .cmd-card::before{background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .mod-card{border-color:rgba(0,245,255,0.2);}
+  .adm-card{border-color:rgba(0,180,216,0.2);}
+  .agent-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+  .agent-badge{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:18px;font-weight:900;flex-shrink:0;}
+  .agent-badge.gold{border:2px solid var(--gold);color:var(--gold);background:rgba(255,209,102,0.08);box-shadow:0 0 14px rgba(255,209,102,0.2);}
+  .agent-badge.cyan{border:2px solid var(--cyan);color:var(--cyan);background:rgba(0,245,255,0.06);}
+  .agent-badge.blue{border:2px solid rgba(0,180,216,0.5);color:var(--cyan2);background:rgba(0,180,216,0.05);}
+  .agent-meta{flex:1;}
+  .agent-tier{font-size:9px;letter-spacing:2px;margin-bottom:3px;}
+  .agent-tier.gold{color:var(--gold);}
+  .agent-tier.cyan{color:var(--cyan);}
+  .agent-tier.blue{color:var(--cyan2);}
+  .agent-code{font-family:'Orbitron',monospace;font-size:13px;font-weight:900;color:#e8f4ff;letter-spacing:1px;}
+  .agent-id{font-size:8px;letter-spacing:2px;color:rgba(0,245,255,0.3);margin-top:2px;}
+  .clearance-badge{font-size:8px;padding:3px 10px;border-radius:6px;letter-spacing:2px;flex-shrink:0;}
+  .cl-alpha{background:rgba(255,209,102,0.1);color:var(--gold);border:1px solid rgba(255,209,102,0.3);}
+  .cl-beta{background:rgba(0,245,255,0.08);color:var(--cyan);border:1px solid rgba(0,245,255,0.2);}
+  .cl-gamma{background:rgba(0,180,216,0.08);color:var(--cyan2);border:1px solid rgba(0,180,216,0.2);}
+  .agent-specs{display:flex;flex-direction:column;gap:7px;}
+  .spec-row{display:flex;gap:10px;align-items:flex-start;}
+  .spec-key{font-size:8px;letter-spacing:2px;color:rgba(255,77,109,0.5);min-width:80px;flex-shrink:0;padding-top:1px;}
+  .spec-val{font-size:11px;color:#c8dff0;line-height:1.5;font-family:'Rajdhani',sans-serif;}
+  .redacted{color:var(--red);letter-spacing:2px;font-family:'Share Tech Mono',monospace;font-size:10px;}
+  .footer{text-align:center;padding:20px 0;margin-top:10px;animation:fadeUp 0.5s ease 4.6s both;}
+  .footer-seal{font-family:'Orbitron',monospace;font-size:12px;font-weight:900;letter-spacing:5px;background:linear-gradient(90deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .footer-code{font-size:8px;color:rgba(0,245,255,0.2);letter-spacing:4px;margin-top:4px;}
+  @keyframes glitch{0%,95%,100%{transform:translate(0);}96%{transform:translate(-2px,1px);}97%{transform:translate(2px,-1px);}98%{transform:translate(-1px,2px);}99%{transform:translate(1px,-2px);}}
+  .glitch{animation:glitch 4s infinite;}
+</style>
+</head>
+<body>
 
+<div class="grid-bg"></div>
+<div class="scanline"></div>
+
+<!-- ACCESS OVERLAY -->
+<div class="access-overlay">
+  <div class="access-text">⚠ VERIFYING CLEARANCE LEVEL ⚠</div>
+  <div class="access-bar"><div class="access-bar-fill"></div></div>
+  <div class="access-code" id="accessCode">INITIALIZING...</div>
+  <div class="access-granted">✓ ACCESS GRANTED</div>
+</div>
+
+<div class="wrap">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-bar-left"><span class="blink-dot"></span>NUSACYBERA — COUNCIL ACCESS</div>
+    <div class="top-bar-right" id="liveTime">--:--:-- WIB</div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <svg class="nc-emblem glitch" viewBox="0 0 80 90" fill="none">
+      <path d="M40 4 L76 18 L76 52 Q76 74 40 86 Q4 74 4 52 L4 18 Z" fill="#071428" stroke="#00f5ff" stroke-width="2"/>
+      <path d="M40 12 L68 24 L68 50 Q68 68 40 78 Q12 68 12 50 L12 24 Z" fill="none" stroke="rgba(0,245,255,0.2)" stroke-width="1"/>
+      <text x="40" y="58" font-family="Arial Black" font-size="26" font-weight="900" fill="#00f5ff" text-anchor="middle">NC</text>
+    </svg>
+    <div class="council-title">◈ STRICTLY CONFIDENTIAL ◈</div>
+    <div class="org-name">NUSACYBERA</div>
+    <div class="council-sub">COUNCIL — INTERNAL DIRECTORY</div>
+    <div class="classified-stamp">⬛ CLASSIFIED ⬛</div>
+  </div>
+
+  <div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+  <!-- HIERARCHY -->
+  <div class="section-label">STRUKTUR ORGANISASI</div>
+  <div class="hierarchy-card" style="animation-delay:4.1s">
+    <div class="hierarchy-title">◈ COUNCIL HIERARCHY — CLASSIFIED ◈</div>
+    <div class="hierarchy-tree">
+      <div class="h-node tier-1"><div class="h-label">👑 SUPREME COMMANDER</div><div class="h-code">ALPHA-LEVEL // NC-001</div></div>
+      <div class="h-connector"></div>
+      <div class="h-node tier-2"><div class="h-label">🛡️ DEPUTY COMMANDER</div><div class="h-code">BETA-LEVEL // NC-002</div></div>
+      <div class="h-connector"></div>
+      <div class="h-split">
+        <div class="h-split-line">
+          <div class="h-node tier-3"><div class="h-label">🛡️ OPERATIVE I</div><div class="h-code">GAMMA-1</div></div>
+        </div>
+        <div class="h-split-line">
+          <div class="h-node tier-3"><div class="h-label">🛡️ OPERATIVE II</div><div class="h-code">GAMMA-2</div></div>
+        </div>
+      </div>
+      <div class="h-connector"></div>
+      <div class="h-node tier-4"><div class="h-label">👥 FIELD AGENTS</div><div class="h-code">DELTA-LEVEL // COLLECTIVE</div></div>
+    </div>
+  </div>
+
+  <div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+  <!-- SUPREME COMMANDER - RISKY -->
+  <div class="section-label">DOSSIER OPERATIF</div>
+  <div class="agent-card cmd-card" style="animation-delay:4.2s">
+    <div class="agent-top">
+      <div class="agent-badge gold">Ω</div>
+      <div class="agent-meta">
+        <div class="agent-tier gold">◈ TIER I — SUPREME COMMANDER</div>
+        <div class="agent-code">AGENT: CIPHER-01</div>
+        <div class="agent-id">ID: NC-ALPHA-001 // FOUNDER</div>
+      </div>
+      <div class="clearance-badge cl-alpha">ALPHA</div>
+    </div>
+    <div class="agent-specs">
+      <div class="spec-row"><div class="spec-key">IDENTITY</div><div class="spec-val">Risky — Pendiri & Owner NUSACYBERA</div></div>
+      <div class="spec-row"><div class="spec-key">STATUS</div><div class="spec-val">ACTIVE — SUPREME AUTHORITY</div></div>
+      <div class="spec-row"><div class="spec-key">CLEARANCE</div><div class="spec-val">ALPHA-1 — UNRESTRICTED ACCESS</div></div>
+      <div class="spec-row"><div class="spec-key">DIRECTIVE</div><div class="spec-val">Mengembangkan semua fitur, mengambil keputusan utama & mengeluarkan fitur resmi</div></div>
+      <div class="spec-row"><div class="spec-key">SPECIAL</div><div class="spec-val">Coding pakai HP — tanpa laptop & database 💪</div></div>
+    </div>
+  </div>
+
+  <!-- DEPUTY COMMANDER - WILDAN -->
+  <div class="agent-card mod-card" style="animation-delay:4.3s">
+    <div class="agent-top">
+      <div class="agent-badge cyan">Σ</div>
+      <div class="agent-meta">
+        <div class="agent-tier cyan">◈ TIER II — DEPUTY COMMANDER</div>
+        <div class="agent-code">AGENT: CIPHER-02</div>
+        <div class="agent-id">ID: NC-BETA-001 // SECOND-IN-COMMAND</div>
+      </div>
+      <div class="clearance-badge cl-beta">BETA</div>
+    </div>
+    <div class="agent-specs">
+      <div class="spec-row"><div class="spec-key">IDENTITY</div><div class="spec-val">Wildan — Moderator & Owner Pengganti</div></div>
+      <div class="spec-row"><div class="spec-key">STATUS</div><div class="spec-val">ACTIVE — SECOND AUTHORITY</div></div>
+      <div class="spec-row"><div class="spec-key">CLEARANCE</div><div class="spec-val">BETA-1 — HIGH ACCESS</div></div>
+      <div class="spec-row"><div class="spec-key">DIRECTIVE</div><div class="spec-val">Mendampingi Supreme Commander & menggantikan saat berhalangan</div></div>
+      <div class="spec-row"><div class="spec-key">SPECIAL</div><div class="spec-val">Berwenang menyetujui keputusan penting bersama Supreme Commander</div></div>
+    </div>
+  </div>
+
+  <!-- ADMIN LOUIS -->
+  <div class="agent-card adm-card" style="animation-delay:4.4s">
+    <div class="agent-top">
+      <div class="agent-badge blue">Δ</div>
+      <div class="agent-meta">
+        <div class="agent-tier blue">◈ TIER III — OPERATIVE</div>
+        <div class="agent-code">AGENT: CIPHER-03</div>
+        <div class="agent-id">ID: NC-GAMMA-001 // FIELD OPS</div>
+      </div>
+      <div class="clearance-badge cl-gamma">GAMMA</div>
+    </div>
+    <div class="agent-specs">
+      <div class="spec-row"><div class="spec-key">IDENTITY</div><div class="spec-val redacted">█████ REDACTED █████</div></div>
+      <div class="spec-row"><div class="spec-key">STATUS</div><div class="spec-val">ACTIVE — FIELD OPERATIVE</div></div>
+      <div class="spec-row"><div class="spec-key">CLEARANCE</div><div class="spec-val">GAMMA-1 — STANDARD AUTHORITY</div></div>
+      <div class="spec-row"><div class="spec-key">DIRECTIVE</div><div class="spec-val">Menjaga ketertiban, menyambut member & operasional harian</div></div>
+      <div class="spec-row"><div class="spec-key">SPECIAL</div><div class="spec-val">Berwenang upload fitur atas izin Supreme Commander</div></div>
+    </div>
+  </div>
+
+  <!-- ADMIN KING -->
+  <div class="agent-card adm-card" style="animation-delay:4.45s">
+    <div class="agent-top">
+      <div class="agent-badge blue">Δ</div>
+      <div class="agent-meta">
+        <div class="agent-tier blue">◈ TIER III — OPERATIVE</div>
+        <div class="agent-code">AGENT: CIPHER-04</div>
+        <div class="agent-id">ID: NC-GAMMA-002 // FIELD OPS</div>
+      </div>
+      <div class="clearance-badge cl-gamma">GAMMA</div>
+    </div>
+    <div class="agent-specs">
+      <div class="spec-row"><div class="spec-key">IDENTITY</div><div class="spec-val redacted">█████ REDACTED █████</div></div>
+      <div class="spec-row"><div class="spec-key">STATUS</div><div class="spec-val">ACTIVE — FIELD OPERATIVE</div></div>
+      <div class="spec-row"><div class="spec-key">CLEARANCE</div><div class="spec-val">GAMMA-2 — STANDARD AUTHORITY</div></div>
+      <div class="spec-row"><div class="spec-key">DIRECTIVE</div><div class="spec-val">Menjaga ketertiban, menyambut member & operasional harian</div></div>
+      <div class="spec-row"><div class="spec-key">SPECIAL</div><div class="spec-val">Berwenang upload fitur atas izin Supreme Commander</div></div>
+    </div>
+  </div>
+
+  <div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+  <!-- MEMBER -->
+  <div class="agent-card" style="border-color:rgba(6,255,165,0.15);animation-delay:4.5s">
+    <div class="agent-top">
+      <div class="agent-badge" style="border:2px solid rgba(6,255,165,0.4);color:var(--green);background:rgba(6,255,165,0.04);">∇</div>
+      <div class="agent-meta">
+        <div class="agent-tier" style="color:var(--green);">◈ TIER IV — FIELD AGENT</div>
+        <div class="agent-code" style="color:#e8f4ff;">AGENT: ALL MEMBERS</div>
+        <div class="agent-id">ID: NC-DELTA-XXX // COLLECTIVE</div>
+      </div>
+      <div class="clearance-badge" style="background:rgba(6,255,165,0.06);color:var(--green);border:1px solid rgba(6,255,165,0.2);">DELTA</div>
+    </div>
+    <div class="agent-specs">
+      <div class="spec-row"><div class="spec-key">IDENTITY</div><div class="spec-val redacted">█████ REDACTED █████</div></div>
+      <div class="spec-row"><div class="spec-key">STATUS</div><div class="spec-val">ACTIVE — COMMUNITY MEMBERS</div></div>
+      <div class="spec-row"><div class="spec-key">CLEARANCE</div><div class="spec-val">DELTA-0 — STANDARD ACCESS</div></div>
+      <div class="spec-row"><div class="spec-key">DIRECTIVE</div><div class="spec-val">Menjaga toleransi, aktif berpartisipasi & mematuhi aturan Council</div></div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div style="margin-bottom:14px;animation:fadeUp 0.5s ease 4.7s both;">
+    <div style="font-size:9px;letter-spacing:4px;color:rgba(0,245,255,0.4);text-align:center;margin-bottom:10px;">◈ QUICK ACCESS — PORTAL NUSACYBERA ◈</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <a href="https://nc-web-olive.vercel.app/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(0,245,255,0.04);border:1px solid rgba(0,245,255,0.15);border-radius:10px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(0,245,255,0.35)';this.style.background='rgba(0,245,255,0.08)'" onmouseout="this.style.borderColor='rgba(0,245,255,0.15)';this.style.background='rgba(0,245,255,0.04)'">
+        <span style="font-size:16px;">🌐</span>
+        <div><div style="font-family:'Orbitron',monospace;font-size:8px;color:var(--cyan);font-weight:700;letter-spacing:1px;">WEBSITE</div><div style="font-size:7px;color:rgba(0,245,255,0.3);letter-spacing:1px;margin-top:1px;">nc-web-olive.vercel.app</div></div>
+      </a>
+      <a href="https://forum-nusa-cybera.vercel.app/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(255,209,102,0.04);border:1px solid rgba(255,209,102,0.15);border-radius:10px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(255,209,102,0.35)';this.style.background='rgba(255,209,102,0.08)'" onmouseout="this.style.borderColor='rgba(255,209,102,0.15)';this.style.background='rgba(255,209,102,0.04)'">
+        <span style="font-size:16px;">💬</span>
+        <div><div style="font-family:'Orbitron',monospace;font-size:8px;color:var(--gold);font-weight:700;letter-spacing:1px;">FORUM</div><div style="font-size:7px;color:rgba(255,209,102,0.3);letter-spacing:1px;margin-top:1px;">forum-nusa-cybera.vercel.app</div></div>
+      </a>
+      <a href="https://laporan-keluar-nuscybera.vercel.app/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(255,77,109,0.04);border:1px solid rgba(255,77,109,0.15);border-radius:10px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(255,77,109,0.35)';this.style.background='rgba(255,77,109,0.08)'" onmouseout="this.style.borderColor='rgba(255,77,109,0.15)';this.style.background='rgba(255,77,109,0.04)'">
+        <span style="font-size:16px;">🚪</span>
+        <div><div style="font-family:'Orbitron',monospace;font-size:8px;color:var(--red);font-weight:700;letter-spacing:1px;">LAPORAN</div><div style="font-size:7px;color:rgba(255,77,109,0.3);letter-spacing:1px;margin-top:1px;">laporan-keluar-nuscybera</div></div>
+      </a>
+      <a href="https://sosial-media-smoky.vercel.app/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(6,255,165,0.04);border:1px solid rgba(6,255,165,0.15);border-radius:10px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(6,255,165,0.35)';this.style.background='rgba(6,255,165,0.08)'" onmouseout="this.style.borderColor='rgba(6,255,165,0.15)';this.style.background='rgba(6,255,165,0.04)'">
+        <span style="font-size:16px;">📱</span>
+        <div><div style="font-family:'Orbitron',monospace;font-size:8px;color:var(--green);font-weight:700;letter-spacing:1px;">SOSIAL MEDIA</div><div style="font-size:7px;color:rgba(6,255,165,0.3);letter-spacing:1px;margin-top:1px;">sosial-media-smoky.vercel.app</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div style="font-size:9px;letter-spacing:3px;color:rgba(255,77,109,0.4);margin-bottom:8px;">⚠ UNAUTHORIZED ACCESS IS PROHIBITED ⚠</div>
+    <div class="footer-seal">NUSACYBERA</div>
+    <div class="footer-code">COUNCIL — INTERNAL USE ONLY // NC-2026</div>
+  </div>
+
+</div>
+
+<script>
+  const chars='ABCDEF0123456789';
+  setInterval(()=>{const el=document.getElementById('accessCode');if(el)el.textContent=Array.from({length:24},()=>chars[Math.floor(Math.random()*chars.length)]).join('');},80);
+  function pad(n){return String(n).padStart(2,'0');}
+  function updateClock(){const now=new Date();const wib=new Date(now.getTime()+now.getTimezoneOffset()*60000+7*3600000);const h=wib.getHours(),m=wib.getMinutes(),s=wib.getSeconds();const el=document.getElementById('liveTime');if(el)el.textContent=`${pad(h)}:${pad(m)}:${pad(s)} WIB`;}
+  updateClock();setInterval(updateClock,1000);
+</script>
+</body>
+</html>
